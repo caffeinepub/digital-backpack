@@ -1,81 +1,23 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-18T07:01:25.865Z",
-  "summary": "The diff implements Internet Identity-based auth gating, a React Query-driven CRUD UI for items (create/list/update/delete dialogs), and a help panel. However, multiple BuildRequest requirements are not met: the backend item schema and APIs do not match the specified fields/method names, packed/category/notes/timestamps and stable persistence are not evidenced, and the frontend lacks packed toggle + packed filtering + “recently updated” sorting and the requested packing-progress summary.",
+  "generatedAt": "2026-02-18T07:10:06.627Z",
+  "summary": "REQ-1 appears implemented by restructuring `frontend/src/App.tsx` with React imported at the top and no imports after the default export. REQ-2 is not evidenced in the diff: no static image files were added under `frontend/public/assets/generated/` even though the UI references those asset paths.",
   "missing_requirements": [
     {
       "id": "REQ-2",
-      "requirement": "Backend backpack item model must include at minimum: id, name, quantity, packed (boolean), optional category, optional notes, createdAt/updatedAt timestamps; expose methods addItem, listItems, updateItem, deleteItem, setPacked (or equivalent); persist across canister upgrades via stable storage; enforce per-Principal access control.",
-      "reason": "The added backend item type contains id/name/quantity but uses description and weight instead of packed/category/notes/timestamps. The shown API includes createItem/getItem/listItems/updateItem, but does not evidence deleteItem or setPacked, and method naming does not match (createItem vs addItem). No stable storage (stable vars / preupgrade/postupgrade) is evidenced in the visible snippet.",
+      "requirement": "Add the required generated static images under `frontend/public/assets/generated/` using the exact filenames referenced by the UI so the app renders without missing-asset errors.",
+      "reason": "The diff shows UI code referencing `/assets/generated/backpack-*.png`, but there are no added files under `frontend/public/assets/generated/` (no files were added at all).",
       "evidence": [
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "requirement": "UI must support packed/unpacked toggle directly from the list (plus add/edit/delete and empty state).",
-      "reason": "Add/edit/delete flows and empty states are present, but no packed/unpacked field or toggle UI is shown in item row/list components.",
-      "evidence": [
-        "frontend/src/features/backpack/components/ItemRow.tsx",
-        "frontend/src/features/backpack/components/ItemList.tsx",
-        "frontend/src/features/backpack/components/ItemForm.tsx",
-        "frontend/src/features/backpack/components/EditItemDialog.tsx",
-        "frontend/src/features/backpack/components/DeleteItemDialog.tsx"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "requirement": "List utilities must include search by name, filter by packed/unpacked (All/Packed/Unpacked), and sort options including Name (A–Z) and Recently Updated.",
-      "reason": "Search is implemented, but there is no packed/unpacked filter UI/state. Sort options shown are Name and Quantity, not Recently Updated.",
-      "evidence": [
-        "frontend/src/features/backpack/components/ListControls.tsx",
-        "frontend/src/features/backpack/state/listControls.ts",
-        "frontend/src/features/backpack/BackpackPage.tsx"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "requirement": "Summary view must show total items count, packed items count, unpacked items count, and packing progress updating after CRUD/toggle.",
-      "reason": "SummaryCards shows Total Items, Total Quantity, and Total Weight; there is no packed/unpacked count or packing progress.",
-      "evidence": [
-        "frontend/src/features/backpack/components/SummaryCards.tsx"
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppShell.tsx"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "User profile setup and profile storage (name) as a required onboarding step before using the backpack.",
-      "reason": "The BuildRequest did not ask for user profiles; it only required Internet Identity scoping for backpack data.",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/components/auth/ProfileSetupDialog.tsx",
-        "frontend/src/hooks/useCurrentUserProfile.ts",
-        "frontend/src/App.tsx"
-      ]
-    },
-    {
-      "description": "Access control initialization via a secret URL parameter (caffeineAdminToken) and an actor method _initializeAccessControlWithSecret.",
-      "reason": "The BuildRequest did not request admin/secret-token based access control initialization.",
-      "evidence": [
-        "frontend/src/hooks/useActor.ts",
-        "backend/main.mo"
-      ]
-    },
-    {
-      "description": "Item fields and UI centered on weight and description instead of the requested packed/category/notes/timestamps.",
-      "reason": "Weight/description are not part of the minimum required item fields in the BuildRequest and appear to replace required fields (packed, notes, timestamps).",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/features/backpack/components/ItemForm.tsx",
-        "frontend/src/features/backpack/components/EditItemDialog.tsx",
-        "frontend/src/features/backpack/components/ItemRow.tsx",
-        "frontend/src/features/backpack/state/listControls.ts"
-      ]
-    },
-    {
-      "description": "Footer attribution/link to caffeine.ai with UTM parameters.",
-      "reason": "Not requested by the BuildRequest requirements or acceptance criteria.",
+      "description": "Added a footer attribution link to caffeine.ai in the app shell.",
+      "reason": "This UI/attribution change is not requested by REQ-1 or REQ-2 (which focus on build success and adding missing static assets).",
       "evidence": [
         "frontend/src/components/layout/AppShell.tsx"
       ]
@@ -83,35 +25,9 @@
   ],
   "confidence": 0.74,
   "changed_files": [
-    "all_files_summary.json",
-    "backend/main.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.css",
-    "frontend/index.html",
     "frontend/src/App.tsx",
-    "frontend/src/components/auth/LoginButton.tsx",
-    "frontend/src/components/auth/ProfileSetupDialog.tsx",
     "frontend/src/components/layout/AppShell.tsx",
-    "frontend/src/features/backpack/BackpackPage.tsx",
-    "frontend/src/features/backpack/components/BackpackErrorState.tsx",
-    "frontend/src/features/backpack/components/BackpackLoadingState.tsx",
-    "frontend/src/features/backpack/components/DeleteItemDialog.tsx",
-    "frontend/src/features/backpack/components/EditItemDialog.tsx",
-    "frontend/src/features/backpack/components/HelpPanel.tsx",
-    "frontend/src/features/backpack/components/ItemForm.tsx",
-    "frontend/src/features/backpack/components/ItemList.tsx",
-    "frontend/src/features/backpack/components/ItemRow.tsx",
-    "frontend/src/features/backpack/components/ListControls.tsx",
-    "frontend/src/features/backpack/components/SummaryCards.tsx",
-    "frontend/src/features/backpack/state/listControls.ts",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useCurrentUserProfile.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/hooks/useQueries.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
-    "frontend/src/utils/urlParams.ts",
-    "frontend/tailwind.config.js",
     "project_state.json"
   ]
 }

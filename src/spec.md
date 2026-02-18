@@ -1,16 +1,10 @@
 # Specification
 
 ## Summary
-**Goal:** Build a “Digital Backpack” web app where authenticated users can manage their own backpack items, including packing status and at-a-glance progress.
+**Goal:** Ensure the Digital Backpack app builds successfully and renders without missing static asset errors.
 
 **Planned changes:**
-- Add Internet Identity sign-in/out and scope all data access to the authenticated user (Principal).
-- Implement a single Motoko actor backend with a per-user item data model and CRUD APIs (add, list, update, delete, set packed), persisted in stable storage.
-- Build the core UI: add item form (name/quantity validation), items list, item detail/edit, delete with confirmation, and packed/unpacked toggle from the list.
-- Add list utilities: search by name, filter (All/Packed/Unpacked), and sort (Name A–Z, Recently Updated).
-- Add a lightweight summary/dashboard showing total, packed, and unpacked counts, updating immediately after changes.
-- Use React Query for all fetching/mutations with loading, error, and retry states, and cache invalidation/updates for consistency.
-- Apply a coherent visual theme with consistent components and a palette that avoids blue/purple dominance.
-- Add basic English onboarding/help copy explaining what the app is and how to add/edit/delete items and use packed/unpacked toggles.
+- Fix `frontend/src/App.tsx` so it compiles cleanly under the project’s TypeScript/ESLint rules (e.g., correct React import usage and no invalid imports after the default export).
+- Add the required generated static images to `frontend/public/assets/generated/` using the exact filenames referenced by the UI.
 
-**User-visible outcome:** Users can sign in with Internet Identity, manage a private list of backpack items (add/edit/delete, mark packed), search/filter/sort items, and see packing progress counts, with clear loading/error handling and consistent styling.
+**User-visible outcome:** The app deploys without frontend build errors, and the landing screen/app header display the logo and background pattern without broken images or 404s.

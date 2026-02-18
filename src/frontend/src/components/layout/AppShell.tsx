@@ -1,3 +1,4 @@
+import React from 'react';
 import LoginButton from '../auth/LoginButton';
 
 interface AppShellProps {

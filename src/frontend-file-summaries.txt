@@ -1,5 +1,5 @@
 {
-  "frontend/src/App.tsx": "Main application component that handles authentication flow, profile setup, and renders the backpack page when authenticated with proper loading states.",
+  "frontend/src/App.tsx": "Main application component that handles authentication flow, profile setup, and renders the backpack page when authenticated with proper loading states and React import at the top.",
   "frontend/src/components/auth/LoginButton.tsx": "Login/logout button component with Internet Identity integration that clears query cache on logout.",
   "frontend/src/components/auth/ProfileSetupDialog.tsx": "First-time user profile setup dialog that prompts for a display name after authentication.",
   "frontend/src/hooks/useCurrentUserProfile.ts": "React Query hooks for fetching and saving user profiles with proper loading state management to prevent modal flash.",
@@ -16,7 +16,7 @@
   "frontend/src/features/backpack/components/BackpackLoadingState.tsx": "Loading skeleton UI for the backpack page with placeholder cards and content.",
   "frontend/src/features/backpack/components/BackpackErrorState.tsx": "Error state component with retry functionality for failed backpack data loads.",
   "frontend/src/features/backpack/state/listControls.ts": "Utility functions for applying search filtering and sorting logic to backpack items.",
-  "frontend/src/components/layout/AppShell.tsx": "Main layout wrapper with header, logo, user greeting, logout button, and footer with attribution.",
+  "frontend/src/components/layout/AppShell.tsx": "Main layout wrapper with header, logo, user greeting, logout button, and footer with attribution, now with proper React import for TypeScript types.",
   "frontend/src/index.css": "Global styles with warm earthy OKLCH color palette (browns, beiges, ambers) avoiding blue/purple dominance.",
   "frontend/tailwind.config.js": "Tailwind configuration with custom color tokens, Inter font family, and extended design system utilities.",
   "frontend/src/main.tsx": "Application entry point with QueryClient, InternetIdentityProvider, and Sonner toast notifications setup."

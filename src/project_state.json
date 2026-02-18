@@ -1,86 +1,30 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Backpack application where users can store, view, and manage items like organizing a digital backpack.",
+  "summary": "New project",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
   "imageRequirements": "## Required Images\n- Backpack logo mark, flat vector style (backpack-logo.dim_512x512.png)\n- Seamless camping/gear pattern background, subtle, low-contrast (backpack-pattern.dim_1600x900.png)\n- Set of 6 simple item category icons (clothing, toiletries, electronics, documents, food, misc), monochrome (backpack-icons.dim_512x512.png)",
   "existing_features": [
     {
-      "id": "feature-implement-internet-identity-sign-in-and-ensure-all-backpack-data-is-scoped-to-the-authenticated-user-by-principal",
-      "title": "Implement Internet Identity sign-in and ensure all backpack data is scoped to the authenticated user (by Principal).",
+      "id": "feature-fix-the-react-entry-component-so-the-frontend-typescript-build-succeeds-e-g-ensure-react-is-imported-correctly-in-frontend-src-app-tsx-and-there-are-no-invalid-imports-placed-after-the-default-export",
+      "title": "Fix the React entry component so the frontend TypeScript build succeeds (e.g., ensure React is imported correctly in frontend/src/App.tsx and there are no invalid imports placed after the default export).",
       "reqIds": [
         "REQ-1"
       ],
       "version": 1
     },
     {
-      "id": "feature-build-the-core-ui-to-view-and-manage-backpack-items-add-item-form-items-list-item-detail-edit-delete-and-packed-unpacked-toggle",
-      "title": "Build the core UI to view and manage backpack items: add item form, items list, item detail/edit, delete, and packed/unpacked toggle.",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-list-utilities-search-by-name-filter-by-packed-unpacked-and-sort-e-g-by-name-and-by-recently-updated",
-      "title": "Add list utilities: search by name, filter by packed/unpacked, and sort (e.g., by name and by recently updated).",
-      "reqIds": [
-        "REQ-4"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-a-lightweight-summary-view-that-helps-users-understand-their-backpack-at-a-glance-counts-and-packing-progress",
-      "title": "Add a lightweight summary view that helps users understand their backpack at a glance (counts and packing progress).",
-      "reqIds": [
-        "REQ-5"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-use-react-query-for-all-backend-data-fetching-mutations-and-provide-loading-error-and-retry-states-for-item-operations",
-      "title": "Use React Query for all backend data fetching/mutations and provide loading, error, and retry states for item operations.",
-      "reqIds": [
-        "REQ-6"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-apply-a-coherent-visual-theme-for-the-app-colors-typography-layout-with-a-distinct-style-and-consistent-components-across-pages-avoid-a-blue-purple-default-palette",
-      "title": "Apply a coherent visual theme for the app (colors, typography, layout) with a distinct style and consistent components across pages; avoid a blue/purple default palette.",
-      "reqIds": [
-        "REQ-7"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-basic-onboarding-help-copy-in-english-that-explains-what-the-digital-backpack-is-and-how-to-use-packed-unpacked-toggles-and-item-management",
-      "title": "Add basic onboarding/help copy in English that explains what the digital backpack is and how to use packed/unpacked toggles and item management.",
-      "reqIds": [
-        "REQ-8"
-      ],
-      "version": 1
-    }
-  ],
-  "new_feature_requests": [
-    {
-      "id": "AR-1",
-      "summary": "Build a backpack application to store, view, and manage backpack items.",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Create a backend data model and API to store and manage backpack items per user, including create, read/list, update, delete operations.",
+      "id": "feature-add-the-required-generated-static-images-under-frontend-public-assets-generated-using-the-exact-filenames-referenced-by-the-ui-so-the-app-renders-without-missing-asset-errors",
+      "title": "Add the required generated static images under `frontend/public/assets/generated/` using the exact filenames referenced by the UI so the app renders without missing-asset errors.",
       "reqIds": [
         "REQ-2"
       ],
-      "status": "pending"
+      "version": 1
     }
   ],
-  "gameProjectType": "none",
+  "new_feature_requests": [],
   "projectName": "Digital Backpack",
   "clarification_mode": "instant",
   "clarification_rounds": 0

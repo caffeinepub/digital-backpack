@@ -1,3 +1,4 @@
+import React from 'react';
 import { useInternetIdentity } from './hooks/useInternetIdentity';
 import { useGetCallerUserProfile } from './hooks/useCurrentUserProfile';
 import { useInitializeBackpack } from './hooks/useQueries';
@@ -82,6 +83,3 @@ export default function App() {
 
   return null;
 }
-
-// Add React import at the top
-import React from 'react';
