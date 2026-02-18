@@ -1,0 +1,271 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Digital Backpack — Frontend implementation plan",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Add Internet Identity sign-in UI and gate all backpack data behind authentication; scope UI state/caches to the active Principal.",
+      "acceptanceCriteria": [
+        "When signed out, the app prompts the user to sign in before accessing any backpack data",
+        "After signing in, the user sees only their own backpack items",
+        "Signing out and signing in with a different identity shows a different (separate) backpack dataset"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the main app shell that uses the selected authorization component’s frontend authentication guidance to (1) show a sign-in prompt when unauthenticated and (2) render the backpack UI only when an identity is present. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "create",
+          "description": "Create a login/logout button using the selected authorization component’s Internet Identity flow; on logout, clear React Query cache to ensure per-Principal data separation. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/AuthGate.tsx",
+          "operation": "create",
+          "description": "Add an auth gate wrapper (using the selected authorization component’s guidance) that blocks rendering/queries for backpack data until the user is signed in, and provides an English sign-in prompt. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useActor.ts",
+          "operation": "modify",
+          "description": "Ensure actor-dependent queries in the app can be reliably disabled while unauthenticated/initializing (so the UI never fetches backpack data for guests), and keep the actor keyed by Principal so identity changes naturally scope data."
+        },
+        {
+          "path": "frontend/src/hooks/useInternetIdentity.ts",
+          "operation": "modify",
+          "description": "Ensure logout reliably clears identity and returns the provider to a stable idle state so the UI can re-render back to the signed-out gated view."
+        },
+        {
+          "path": "frontend/src/hooks/useCurrentUserProfile.ts",
+          "operation": "create",
+          "description": "Implement React Query hooks for getCallerUserProfile/saveCallerUserProfile using the selected authorization component’s recommended 'prevent modal flash' pattern, so first-time users can set a display name. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/auth/ProfileSetupDialog.tsx",
+          "operation": "create",
+          "description": "Add a first-login profile setup dialog (English copy) that asks for a user name and calls saveCallerUserProfile; avoid displaying Principal IDs in the UI per the selected authorization component guidance. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Build the core backpack item management UI: add, list, edit/detail, delete with confirmation, and packed/unpacked toggle with empty state.",
+      "acceptanceCriteria": [
+        "User can add a new item with name and quantity (minimum required fields validated)",
+        "User can edit an existing item and save changes",
+        "User can delete an item with a confirmation step",
+        "User can toggle packed/unpacked state directly from the list",
+        "UI shows clear empty state when there are no items"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/backpack/types.ts",
+          "operation": "create",
+          "description": "Define frontend-facing item types for the UI (including packed, optional category, optional notes, timestamps) and a mapping layer between backend items and UI items, so the UI can evolve independently while staying compatible with current backend types."
+        },
+        {
+          "path": "frontend/src/features/backpack/api.ts",
+          "operation": "create",
+          "description": "Create a thin API wrapper around the backend actor calls used by the backpack UI (create, list, update, delete, and packed toggle when supported), keeping all calls centralized for React Query usage."
+        },
+        {
+          "path": "frontend/src/features/backpack/components/ItemForm.tsx",
+          "operation": "create",
+          "description": "Create an add/edit item form with validation (name + quantity required) using selected shadcn-ui form primitives (inputs, textarea, buttons, etc.) for consistent UI. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/backpack/components/ItemList.tsx",
+          "operation": "create",
+          "description": "Create the items list view with row/card layout, packed toggle control, edit entry point, and clear empty-state panel; use selected shadcn-ui components for consistent list styling and interactions. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/backpack/components/ItemRow.tsx",
+          "operation": "create",
+          "description": "Create a reusable item row/card that supports packed/unpacked toggle, quick actions (edit/delete), and displays key fields; use selected shadcn-ui components for buttons/checkbox/switch/badges as appropriate. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/backpack/components/EditItemDialog.tsx",
+          "operation": "create",
+          "description": "Add an item detail/edit dialog that loads the item data for editing and saves changes; use selected shadcn-ui dialog components. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/backpack/components/DeleteItemDialog.tsx",
+          "operation": "create",
+          "description": "Add a delete confirmation dialog (explicit confirmation step) for item deletion; use selected shadcn-ui dialog/alert components. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/backpack/BackpackPage.tsx",
+          "operation": "create",
+          "description": "Compose the backpack UI (summary, help, add form, utilities, list) into a single authenticated page, showing an empty state when there are no items."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire BackpackPage into the authenticated area (inside AuthGate) so it is reachable and not orphaned."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Add list utilities: search by name, filter by packed status, and sort by name or recently updated without breaking CRUD.",
+      "acceptanceCriteria": [
+        "Search updates the visible list based on item name matching",
+        "Filter can show: All, Packed, Unpacked",
+        "Sort options include at least: Name (A–Z) and Recently Updated",
+        "Search/filter/sort interactions do not break CRUD operations (adding/editing/deleting still works)"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/backpack/state/listControls.ts",
+          "operation": "create",
+          "description": "Add small utility functions/state helpers to apply search/filter/sort to the item collection in a predictable, testable way."
+        },
+        {
+          "path": "frontend/src/features/backpack/components/ListControls.tsx",
+          "operation": "create",
+          "description": "Create the search input, packed filter control, and sort selector UI using selected shadcn-ui components (input/select/tabs, etc.) for consistent styling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/backpack/BackpackPage.tsx",
+          "operation": "modify",
+          "description": "Wire ListControls into the page and apply the computed visible list to ItemList while ensuring add/edit/delete/toggle mutations continue to work against the full dataset."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Add a summary view that shows counts and packing progress and updates immediately after any item mutation.",
+      "acceptanceCriteria": [
+        "Dashboard/summary displays: total items count, packed items count, unpacked items count",
+        "Summary updates immediately after toggling packed state, adding, editing, or deleting items"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/backpack/components/SummaryCards.tsx",
+          "operation": "create",
+          "description": "Create a lightweight summary section (total/packed/unpacked + progress) using selected shadcn-ui card/progress components for consistent styling. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/backpack/BackpackPage.tsx",
+          "operation": "modify",
+          "description": "Wire SummaryCards to the same React Query-backed item data so counts/progress update immediately after add/edit/delete/toggle (via cache updates/invalidations)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Use React Query for all item data fetching/mutations with loading, error, and retry UI states.",
+      "acceptanceCriteria": [
+        "List view displays a loading state while fetching items",
+        "Failures from backend calls display an error message with a retry action",
+        "Successful mutations invalidate/refetch or update caches so the UI stays consistent without manual refresh"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/backpack/queries.ts",
+          "operation": "create",
+          "description": "Implement React Query hooks for list and item mutations (create/update/delete/toggle packed) using the actor from useActor; ensure queries are enabled only when authenticated and actor is ready."
+        },
+        {
+          "path": "frontend/src/features/backpack/components/BackpackLoadingState.tsx",
+          "operation": "create",
+          "description": "Create a consistent loading UI for the backpack list and key panels using selected shadcn-ui skeleton/spinner primitives if available. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/backpack/components/BackpackErrorState.tsx",
+          "operation": "create",
+          "description": "Create a consistent error state with an English message and retry action (refetch) for list/mutation failures; handle authorization-style failures gracefully per the selected authorization component guidance. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/backpack/BackpackPage.tsx",
+          "operation": "modify",
+          "description": "Adopt the React Query hooks for rendering and mutations; render loading/error/retry states and ensure successful mutations update or invalidate caches so the UI stays consistent without manual refresh."
+        },
+        {
+          "path": "frontend/src/components/auth/LoginButton.tsx",
+          "operation": "modify",
+          "description": "Ensure logout clears React Query caches (queryClient.clear()) so no previous-user item data persists after identity changes, following the selected authorization component guidance. Verify the component's usage instructions before implementing."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Apply a cohesive visual theme (non-blue/purple dominant) with consistent layout and components across the app.",
+      "acceptanceCriteria": [
+        "Theme is applied consistently to navigation/header, forms, list cards/rows, and buttons",
+        "Palette avoids default blue/purple dominance (unless used only as minor accents)",
+        "Typography and spacing feel intentionally designed and consistent across screens"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create the global Tailwind/shadcn token styles (CSS variables) to define an earthy/neutral palette (avoiding blue/purple dominance), typography, spacing, and base background styling."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Adjust theme extensions if needed to support the chosen non-blue/purple palette and consistent radii/shadows, keeping styling aligned with shadcn token usage."
+        },
+        {
+          "path": "frontend/src/components/layout/AppShell.tsx",
+          "operation": "create",
+          "description": "Create a shared layout (header/nav + content container) used by the authenticated backpack UI to ensure consistent spacing and visual structure; incorporate selected shadcn-ui components where appropriate. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wrap authenticated content with AppShell so header, buttons, forms, and list cards share consistent styling across the app."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Add an English onboarding/help section visible from the main UI explaining the digital backpack and how to manage items and packed toggles.",
+      "acceptanceCriteria": [
+        "A short help/onboarding section is visible from the main UI (e.g., an info panel or modal)",
+        "All user-facing text is in English",
+        "Copy clearly explains add/edit/delete and packed/unpacked usage"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/backpack/components/HelpPanel.tsx",
+          "operation": "create",
+          "description": "Create an English help/onboarding panel or dialog that explains what the digital backpack is, how to add/edit/delete items, and how packed/unpacked toggles work; use selected shadcn-ui dialog/accordion components for readable presentation. Verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/features/backpack/BackpackPage.tsx",
+          "operation": "modify",
+          "description": "Wire HelpPanel into the main authenticated UI so it is always accessible (e.g., via an Info button in the header area)."
+        },
+        {
+          "path": "frontend/public/assets/generated/backpack-logo.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated backpack logo asset at the exact path frontend/public/assets/generated/backpack-logo.dim_512x512.png and prepare it for use in the app header/branding."
+        },
+        {
+          "path": "frontend/public/assets/generated/backpack-pattern.dim_1600x900.png",
+          "operation": "create",
+          "description": "Add the generated subtle pattern background asset at the exact path frontend/public/assets/generated/backpack-pattern.dim_1600x900.png and wire it into the app’s global/background styling."
+        },
+        {
+          "path": "frontend/public/assets/generated/backpack-icons.dim_512x512.png",
+          "operation": "create",
+          "description": "Add the generated category icon set asset at the exact path frontend/public/assets/generated/backpack-icons.dim_512x512.png and wire it into the UI where category cues are shown (as applicable)."
+        },
+        {
+          "path": "frontend/src/components/layout/AppShell.tsx",
+          "operation": "modify",
+          "description": "Wire the generated logo asset (frontend/public/assets/generated/backpack-logo.dim_512x512.png) into the header branding and ensure all user-facing text remains in English."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Wire the generated background pattern asset (frontend/public/assets/generated/backpack-pattern.dim_1600x900.png) into the global app background styling while keeping it subtle/low-contrast."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "kind": "build_request",
+  "title": "Digital Backpack app for managing items",
+  "projectName": "Digital Backpack",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Implement Internet Identity sign-in and ensure all backpack data is scoped to the authenticated user (by Principal).",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create backpack application"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When signed out, the app prompts the user to sign in before accessing any backpack data",
+        "After signing in, the user sees only their own backpack items",
+        "Signing out and signing in with a different identity shows a different (separate) backpack dataset"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Create a backend data model and API to store and manage backpack items per user, including create, read/list, update, delete operations.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create backpack application"
+        ]
+      },
+      "acceptanceCriteria": [
+        "An item supports at minimum: id, name, quantity, packed (boolean), optional category, optional notes, createdAt/updatedAt timestamps",
+        "Backend exposes methods to: addItem, listItems, updateItem, deleteItem, setPacked (or equivalent)",
+        "Items persist across page reloads and canister upgrades (stable storage)",
+        "All methods enforce that only the owning Principal can read/write their items"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Build the core UI to view and manage backpack items: add item form, items list, item detail/edit, delete, and packed/unpacked toggle.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create backpack application"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can add a new item with name and quantity (minimum required fields validated)",
+        "User can edit an existing item and save changes",
+        "User can delete an item with a confirmation step",
+        "User can toggle packed/unpacked state directly from the list",
+        "UI shows clear empty state when there are no items"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Add list utilities: search by name, filter by packed/unpacked, and sort (e.g., by name and by recently updated).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create backpack application"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Search updates the visible list based on item name matching",
+        "Filter can show: All, Packed, Unpacked",
+        "Sort options include at least: Name (A–Z) and Recently Updated",
+        "Search/filter/sort interactions do not break CRUD operations (adding/editing/deleting still works)"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Add a lightweight summary view that helps users understand their backpack at a glance (counts and packing progress).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create backpack application"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Dashboard/summary displays: total items count, packed items count, unpacked items count",
+        "Summary updates immediately after toggling packed state, adding, editing, or deleting items"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Use React Query for all backend data fetching/mutations and provide loading, error, and retry states for item operations.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create backpack application"
+        ]
+      },
+      "acceptanceCriteria": [
+        "List view displays a loading state while fetching items",
+        "Failures from backend calls display an error message with a retry action",
+        "Successful mutations invalidate/refetch or update caches so the UI stays consistent without manual refresh"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Apply a coherent visual theme for the app (colors, typography, layout) with a distinct style and consistent components across pages; avoid a blue/purple default palette.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create backpack application"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Theme is applied consistently to navigation/header, forms, list cards/rows, and buttons",
+        "Palette avoids default blue/purple dominance (unless used only as minor accents)",
+        "Typography and spacing feel intentionally designed and consistent across screens"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Add basic onboarding/help copy in English that explains what the digital backpack is and how to use packed/unpacked toggles and item management.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create backpack application"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A short help/onboarding section is visible from the main UI (e.g., an info panel or modal)",
+        "All user-facing text is in English",
+        "Copy clearly explains add/edit/delete and packed/unpacked usage"
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (no multi-canister backend).",
+    "Do not edit files in the immutable frontend paths listed in SYSTEM_CONTEXT; compose existing UI components instead."
+  ],
+  "nonGoals": [
+    "No real-time collaboration or chat features.",
+    "No third-party authentication providers beyond Internet Identity.",
+    "No external database or third-party storage integration.",
+    "No mobile-native app build (web app only)."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Backpack logo mark, flat vector style (backpack-logo.dim_512x512.png)",
+      "Seamless camping/gear pattern background, subtle, low-contrast (backpack-pattern.dim_1600x900.png)",
+      "Set of 6 simple item category icons (clothing, toiletries, electronics, documents, food, misc), monochrome (backpack-icons.dim_512x512.png)"
+    ],
+    "edits": []
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "frontend/src/App.tsx": "Main application component that handles authentication flow, profile setup, and renders the backpack page when authenticated with proper loading states.",
+  "frontend/src/components/auth/LoginButton.tsx": "Login/logout button component with Internet Identity integration that clears query cache on logout.",
+  "frontend/src/components/auth/ProfileSetupDialog.tsx": "First-time user profile setup dialog that prompts for a display name after authentication.",
+  "frontend/src/hooks/useCurrentUserProfile.ts": "React Query hooks for fetching and saving user profiles with proper loading state management to prevent modal flash.",
+  "frontend/src/hooks/useQueries.ts": "Centralized React Query hooks for all backpack CRUD operations including list, create, update, delete, and backpack initialization.",
+  "frontend/src/features/backpack/BackpackPage.tsx": "Main backpack page component that composes summary cards, item form, list controls, and item list with search/sort functionality.",
+  "frontend/src/features/backpack/components/SummaryCards.tsx": "Dashboard summary cards displaying total items, total quantity, and total weight statistics.",
+  "frontend/src/features/backpack/components/ItemForm.tsx": "Form component for adding new backpack items with validation for name, quantity, description, and weight fields.",
+  "frontend/src/features/backpack/components/ItemList.tsx": "List view component that displays backpack items with empty state and filtered state handling.",
+  "frontend/src/features/backpack/components/ItemRow.tsx": "Individual item row component with edit and delete action buttons.",
+  "frontend/src/features/backpack/components/EditItemDialog.tsx": "Modal dialog for editing existing backpack items with form validation.",
+  "frontend/src/features/backpack/components/DeleteItemDialog.tsx": "Confirmation alert dialog for deleting backpack items with destructive action styling.",
+  "frontend/src/features/backpack/components/ListControls.tsx": "Search input and sort dropdown controls for filtering and organizing the item list.",
+  "frontend/src/features/backpack/components/HelpPanel.tsx": "Help dialog with accordion sections explaining how to use the digital backpack application.",
+  "frontend/src/features/backpack/components/BackpackLoadingState.tsx": "Loading skeleton UI for the backpack page with placeholder cards and content.",
+  "frontend/src/features/backpack/components/BackpackErrorState.tsx": "Error state component with retry functionality for failed backpack data loads.",
+  "frontend/src/features/backpack/state/listControls.ts": "Utility functions for applying search filtering and sorting logic to backpack items.",
+  "frontend/src/components/layout/AppShell.tsx": "Main layout wrapper with header, logo, user greeting, logout button, and footer with attribution.",
+  "frontend/src/index.css": "Global styles with warm earthy OKLCH color palette (browns, beiges, ambers) avoiding blue/purple dominance.",
+  "frontend/tailwind.config.js": "Tailwind configuration with custom color tokens, Inter font family, and extended design system utilities.",
+  "frontend/src/main.tsx": "Application entry point with QueryClient, InternetIdentityProvider, and Sonner toast notifications setup."
+}

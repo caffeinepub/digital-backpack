@@ -1,0 +1,161 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-implement-internet-identity-sign-in-and-ensure-all-backpack-data-is-scoped-to-the-authenticated-user-by-principal",
+      "featureTitle": "Implement Internet Identity sign-in and ensure all backpack data is scoped to the authenticated user (by Principal).",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/components/auth/ProfileSetupDialog.tsx",
+        "frontend/src/hooks/useActor.ts",
+        "frontend/src/hooks/useCurrentUserProfile.ts",
+        "frontend/src/hooks/useInternetIdentity.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-build-the-core-ui-to-view-and-manage-backpack-items-add-item-form-items-list-item-detail-edit-delete-and-packed-unpacked-toggle",
+      "featureTitle": "Build the core UI to view and manage backpack items: add item form, items list, item detail/edit, delete, and packed/unpacked toggle.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/features/backpack/BackpackPage.tsx",
+        "frontend/src/features/backpack/components/DeleteItemDialog.tsx",
+        "frontend/src/features/backpack/components/EditItemDialog.tsx",
+        "frontend/src/features/backpack/components/ItemForm.tsx",
+        "frontend/src/features/backpack/components/ItemList.tsx",
+        "frontend/src/features/backpack/components/ItemRow.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-list-utilities-search-by-name-filter-by-packed-unpacked-and-sort-e-g-by-name-and-by-recently-updated",
+      "featureTitle": "Add list utilities: search by name, filter by packed/unpacked, and sort (e.g., by name and by recently updated).",
+      "files": [
+        "frontend/src/features/backpack/BackpackPage.tsx",
+        "frontend/src/features/backpack/components/ListControls.tsx",
+        "frontend/src/features/backpack/state/listControls.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-lightweight-summary-view-that-helps-users-understand-their-backpack-at-a-glance-counts-and-packing-progress",
+      "featureTitle": "Add a lightweight summary view that helps users understand their backpack at a glance (counts and packing progress).",
+      "files": [
+        "frontend/src/features/backpack/BackpackPage.tsx",
+        "frontend/src/features/backpack/components/SummaryCards.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-5"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-use-react-query-for-all-backend-data-fetching-mutations-and-provide-loading-error-and-retry-states-for-item-operations",
+      "featureTitle": "Use React Query for all backend data fetching/mutations and provide loading, error, and retry states for item operations.",
+      "files": [
+        "frontend/src/components/auth/LoginButton.tsx",
+        "frontend/src/features/backpack/BackpackPage.tsx",
+        "frontend/src/features/backpack/components/BackpackErrorState.tsx",
+        "frontend/src/features/backpack/components/BackpackLoadingState.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-6"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-apply-a-coherent-visual-theme-for-the-app-colors-typography-layout-with-a-distinct-style-and-consistent-components-across-pages-avoid-a-blue-purple-default-palette",
+      "featureTitle": "Apply a coherent visual theme for the app (colors, typography, layout) with a distinct style and consistent components across pages; avoid a blue/purple default palette.",
+      "files": [
+        "frontend/src/App.tsx",
+        "frontend/src/components/layout/AppShell.tsx",
+        "frontend/src/index.css",
+        "frontend/tailwind.config.js"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-basic-onboarding-help-copy-in-english-that-explains-what-the-digital-backpack-is-and-how-to-use-packed-unpacked-toggles-and-item-management",
+      "featureTitle": "Add basic onboarding/help copy in English that explains what the digital backpack is and how to use packed/unpacked toggles and item management.",
+      "files": [
+        "frontend/src/components/layout/AppShell.tsx",
+        "frontend/src/features/backpack/BackpackPage.tsx",
+        "frontend/src/features/backpack/components/HelpPanel.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
